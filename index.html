@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<head>
+  <title>OasisFM</title>
+  <link
+    rel="shortcut icon"
+    href="{{ url_for('static', filename='phones.png') }}"
+  />
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+
+  <script>
+    function getRandomLabel() {
+      var labels = ['House', 'EDM', 'Alternative', 'Blues', 'Country', 'Electronic', 'Folk', 'Hip Hop', 'Disco', 'Pop', 'Rock', 'Alt Rock', 'IDM', 'Jungle', 'K-pop', 'Ambient', 'DnB', 'Funk', 'Latin', ];
+      return labels[Math.floor(Math.random() * labels.length)];
+
+    }
+    
+    function setButtonLabels() {
+      var indieButton = document.getElementById("indieLabel");
+      var rapButton = document.getElementById("rapLabel");
+      var houseButton = document.getElementById("houseLabel");
+
+      indieButton.innerText = getRandomLabel();
+      rapButton.innerText = getRandomLabel();
+      houseButton.innerText = getRandomLabel();
+}
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      setButtonLabels();
+    });
+
+    </script>
+
+  <script>
+    function setInputValue(labelId) {
+  var label = document.getElementById(labelId);
+  var value = label.innerText;
+  document.getElementById('textInput').value = value;
+}
+
+  </script>
+
+</head>
+
+<body>
+  <img src="{{ url_for('static', filename='phones.png') }}" class="icon" />
+  <h3>Find your new favorite artist</h3>
+  <form action="/" method="post">
+    <input type="text" id = "textInput" name="genre" placeholder="Explore a genre"/>
+    <div class="button-container">
+      <button type="button" class="genre-button" onclick="setInputValue('indieLabel')"><span id="indieLabel"></span></button>
+      <button type="button" class="genre-button" onclick="setInputValue('rapLabel')"><span id="rapLabel"></span></button>
+      <button type="button" class="genre-button" onclick="setInputValue('houseLabel')"><span id="houseLabel"></span></button>
+    </div>
+    <input type="submit" value="Discover new artists" />
+  </form>
+  {% if result %}
+  <div class="result">{{ result }}</div>
+  {% endif %}
+
+<!--  <iframe id="player" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/0UqsjcCWspXDIF5nDeBUJG?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>> -->
+
+</body>
